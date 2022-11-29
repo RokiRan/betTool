@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import is_dev from 'electron-is-dev';
 import { join } from 'path';
-
+import electronBaisc from './main/electron-baisc';
 let mainWindow: BrowserWindow | null = null;
 
 class createWin {
@@ -34,6 +34,8 @@ class createWin {
 
     mainWindow.on('ready-to-show', () => {
       mainWindow?.show();
+      // 注册事件
+      registerEvents();
     });
   }
 }
@@ -63,3 +65,11 @@ app.on('activate', () => {
     new createWin();
   }
 });
+
+//-----------------------------------------------------------------------------------
+// 在这个文件中，你可以包含应用程序剩余的所有部分的代码，
+// 也可以拆分成几个文件，然后用 require 导入。
+//-----------------------------------------------------------------------------------
+function registerEvents() {
+  electronBaisc.registerEvents();
+}
