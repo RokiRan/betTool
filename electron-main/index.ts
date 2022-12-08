@@ -2,7 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import is_dev from 'electron-is-dev';
 import { join } from 'path';
 import electronBaisc from './main/electron-baisc';
-import WsServer from './main/service';
+import { initWs, io } from './main/service';
 let mainWindow: BrowserWindow | null = null;
 
 class createWin {
@@ -75,4 +75,4 @@ function registerEvents() {
   electronBaisc.registerEvents();
 }
 
-WsServer();
+initWs();
