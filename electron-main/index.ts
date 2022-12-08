@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import is_dev from 'electron-is-dev';
 import { join } from 'path';
 import electronBaisc from './main/electron-baisc';
+import WsServer from './main/service';
 let mainWindow: BrowserWindow | null = null;
 
 class createWin {
@@ -35,7 +36,7 @@ class createWin {
     mainWindow.on('ready-to-show', () => {
       mainWindow?.show();
       // 注册事件
-      registerEvents();
+      registerEvents.call(this);
     });
   }
 }
@@ -73,3 +74,5 @@ app.on('activate', () => {
 function registerEvents() {
   electronBaisc.registerEvents();
 }
+
+WsServer();

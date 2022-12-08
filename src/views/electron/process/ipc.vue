@@ -13,6 +13,7 @@
       show-icon
     />
     <div class="mt-4">
+      <a-input v-model:value="sendMsg" />
       <a-button type="primary" size="small" @click="hanleSendMessageToMain">
         向主进程发送消息
       </a-button>
@@ -30,18 +31,18 @@
 
 <script lang="ts">
   import { defineComponent, ref, onMounted } from 'vue';
-  import { Alert, Divider } from 'ant-design-vue';
+  import { Alert, Divider, Input } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   const { ipcRenderer } = require('electron');
   //import { ipcRenderer } from 'electron'; // 这样引用，打包后报错,请使用：require('electron')
 
   export default defineComponent({
-    components: { PageWrapper, Alert, Divider },
+    components: { PageWrapper, Alert, Divider, [Input.name]: Input },
     setup() {
       const dataFromMain = ref('');
-
+      const sendMsg = ref('newWin');
       const hanleSendMessageToMain = () => {
-        ipcRenderer.send('event_from_renderer', { param: 123 });
+        ipcRenderer.send('event_from_renderer', { param: sendMsg.value });
       };
       // 渲染进程发送消息到主进程
       const hanleSendMessageToMainNeedReply = () => {
@@ -63,6 +64,7 @@
         hanleSendMessageToMain,
         hanleSendMessageToMainNeedReply,
         dataFromMain,
+        sendMsg,
       };
     },
   });
