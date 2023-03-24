@@ -29,5 +29,6 @@ ipcMain.on('event_from_renderer_need_replay', (event, data) => {
   // 广播信息
   io.emit('chat message', data);
   event.reply('event_from_main_replay', '【渲染进程，你的消息我已收到】');
+  ipcMain.emit('event_from_main_replay', '【渲染进程，你的消息我已收到】');
 });
 export { initWs, io };

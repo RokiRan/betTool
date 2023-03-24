@@ -9,13 +9,14 @@ class createWin {
   constructor() {
     const displayWorkAreaSize = screen.getAllDisplays()[0].workArea;
     mainWindow = new BrowserWindow({
-      width: parseInt(`${displayWorkAreaSize.width * 0.85}`, 10),
-      height: parseInt(`${displayWorkAreaSize.height * 0.85}`, 10),
+      width: parseInt(`${displayWorkAreaSize.width * 0.5}`, 10),
+      height: parseInt(`${displayWorkAreaSize.height * 0.5}`, 10),
       movable: true,
       // frame: false,
       show: false,
       center: true,
       resizable: true,
+      autoHideMenuBar: true,
       // transparent: true,
       titleBarStyle: 'default',
       webPreferences: {
@@ -25,7 +26,7 @@ class createWin {
         //enableRemoteModule: true,
         webSecurity: false, //解决：打包后出现跨域问题
       },
-      backgroundColor: '#fff',
+      backgroundColor: '#000',
     });
     const URL = is_dev
       ? `http://localhost:${process.env.PORT}` // vite 启动的服务器地址
@@ -72,7 +73,7 @@ app.on('activate', () => {
 // 也可以拆分成几个文件，然后用 require 导入。
 //-----------------------------------------------------------------------------------
 function registerEvents() {
-  electronBaisc.registerEvents();
+  electronBaisc.registerEvents(io);
 }
 
 initWs();

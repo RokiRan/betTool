@@ -34,6 +34,7 @@
   import { Alert, Divider, Input } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   const { ipcRenderer } = require('electron');
+  import { IpcEventEnum } from '/@/types/order';
   //import { ipcRenderer } from 'electron'; // 这样引用，打包后报错,请使用：require('electron')
 
   export default defineComponent({
@@ -50,7 +51,7 @@
       };
       // 监听来自主进程的响应消息
       const registerEvents = () => {
-        ipcRenderer.on('event_from_main_replay', (_, data) => {
+        ipcRenderer.on(IpcEventEnum.EVENT_FROM_RENDERER_NEED_REPLAY, (_, data) => {
           console.log('In renderer:event_from_main_replay-->data:', data);
           dataFromMain.value += data;
         });

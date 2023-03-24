@@ -1,8 +1,9 @@
 import { ipcMain } from 'electron';
 
-const registerEvents = () => {
+const registerEvents = function (io: any) {
   ipcMain.on('event_from_renderer', (event, data) => {
     console.log('event_from_renderer->data:', data);
+    io.emit('chat message', data);
     switch (data.param) {
       case 'close':
         console.log('close');
